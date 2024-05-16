@@ -1,41 +1,21 @@
 import reactLogo from './assets/react.svg'
 import './App.css'
 
-const reactDesc = ['Fundamental', 'Crucial', 'Core']
-
-function genRandomInt(max) {
-  return Math.floor(Math.random() * (max + 1));
-
-}
-
-
-function Header() {
-  return (
-    <div>
-      <h2>React Essentaital</h2>
-      <p>
-        {reactDesc[genRandomInt(2)]} React concept you will needfor almostany app you are going to bulid!
-      </p>
-    </div>
-
-  )
-};
+import Header from './components/Header';
+import CoreConcepts from './components/CoreConcepts';
+import TabButton from './components/TabButton';
 import { CORE_CONCEPTS } from './data';
-function CoreConcepts({title, description}) {
-  return (
-    <li>
-      <img src={reactLogo} alt={title} />
-      <h3>{title}</h3>
-      <p>{description}</p>
-
-    </li>
-
-
-  )
-}
-
+import { EXMAPLES } from './data.js';
+import { useState } from 'react';
 
 function App() {
+  const [selectTab, setSelectTab] = useState('');
+
+  const handelSelect = (selectTab) => {
+    setSelectTab(selectTab)
+    console.log({selectTab})
+
+  }
 
   return (
     <>
@@ -48,14 +28,48 @@ function App() {
           <section id="core-concepts">
             <h2>Core Concept</h2>
             <ul className="UL">
-              <CoreConcepts title={CORE_CONCEPTS[0].title}
+              {CORE_CONCEPTS.map((conceptItem) =>  
+              <CoreConcepts key={conceptItem.title} {...conceptItem} />
+            )}
+              {/* {CORE_CONCEPTS.map((conceptItem) =>  
+              <CoreConcepts title={conceptItem.title}
+              description={conceptItem.description} />
+            )} */}
+              {/* <CoreConcepts title={CORE_CONCEPTS[0].title}
                 description={CORE_CONCEPTS[0].description} />
               <CoreConcepts {...CORE_CONCEPTS[1]} />
               <CoreConcepts {...CORE_CONCEPTS[2]} />
-              <CoreConcepts {...CORE_CONCEPTS[3]} />
+              <CoreConcepts {...CORE_CONCEPTS[3]} /> */}
             </ul>
 
           </section>
+          <section id="examples">
+            <h2>examples</h2>
+            <menu className='menu'> 
+             <TabButton isSelected={selectTab === "components"} onSelect={() => handelSelect('components')}>Components</TabButton>
+             <TabButton isSelected={selectTab === "jsx"} onSelect={() => handelSelect('jsx')}>JSX</TabButton>
+             <TabButton isSelected={selectTab === "props"} onSelect={() => handelSelect('props')}>Props</TabButton>
+             <TabButton isSelected={selectTab === "state"} onSelect={() => handelSelect('state')}>State</TabButton>
+
+            </menu>
+            {!selectTab ? <p>Please selct a option to see the out put</p> :
+            
+            <div className="tab">
+              <h3>{EXMAPLES[selectTab].title}</h3>
+              <p>{EXMAPLES[selectTab].description}</p>
+              <pre>
+                <code>{EXMAPLES[selectTab].code}</code>
+              </pre>
+
+            </div>
+            }
+
+            {/* we can use && */}
+            {/* {selectTab && <>this the true returen</>} */}
+          </section>
+
+
+         
 
         </main>
 
