@@ -40,27 +40,3 @@
 .read-the-docs {
   color: #888;
 }
-.menu{
-  display: flex;
-  gap: 20px;
-}
-li{
-  list-style: none;
-}
-.tab{
-  text-align: left;
-  border-radius: 20px;
-  border: 2px solid #646cffaa ;
-  background-color: #646cffaa;
-  padding: 5%;
-  h3{
-    font-size: 30px;
-  }
-  code{
-    color: rgb(233, 213, 220);
-  }
-}
-.active{
-  background-color: white;
-  color: black;
-}
